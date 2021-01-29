@@ -67,7 +67,7 @@ function loadSong(song) {
   image.src = `img/${song.name}.jpg`;
 }
 
-let songIndex = 0;
+let songIndex = 2;
 
 function loadPrevSong() {
   songIndex = songIndex === 0 ? songs.length - 1 : songIndex - 1;
