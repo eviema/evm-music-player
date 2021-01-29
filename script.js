@@ -9,6 +9,8 @@ const durationEl = document.getElementById("duration");
 const prevBtn = document.getElementById("prev");
 const playBtn = document.getElementById("play");
 const nextBtn = document.getElementById("next");
+const loopBtn = document.getElementById("loop");
+const shuffleBtn = document.getElementById("shuffle");
 
 const songs = [
   {
@@ -120,8 +122,16 @@ function setProgressBar(e) {
 }
 
 music.addEventListener("timeupdate", updateProgressBar);
-music.addEventListener("ended", loadNextSong);
 progressContainer.addEventListener("click", setProgressBar);
+
+// Auto play next song
+music.addEventListener("ended", loadNextSong);
+
+// Toggle: Loop current song
+loopBtn.addEventListener("click", () => {
+  music.loop = !music.loop;
+  loopBtn.style.opacity = music.loop ? 0.8 : 0.5;
+});
 
 // On load
 loadSong(songs[songIndex]);
