@@ -86,7 +86,7 @@ nextBtn.addEventListener("click", loadNextSong);
 
 // Update progress bar & time
 
-// Format time in seconds (e.g. 126.43585) into minutes (e.g. 2:06)
+// Helper function: Format time in seconds (e.g. 126.43585) into minutes (e.g. 2:06)
 function formatTime(time) {
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60).toLocaleString("en-US", {
