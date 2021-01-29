@@ -91,7 +91,7 @@ h3 {
 
 .fas {
   font-size: 30px;
-  color: rgb(129, 129, 129);
+  color: #818181;
   margin-right: 30px;
   cursor: pointer;
   user-select: none;
@@ -109,13 +109,24 @@ h3 {
 
 .loop {
   height: 30px;
-  opacity: 0.5;
   cursor: pointer;
   user-select: none;
 }
 
-.loop:hover {
+.loop-inactive {
+  opacity: 0.5;
+}
+
+.loop-inactive:hover {
   opacity: 0.7;
+}
+
+.loop-active {
+  opacity: 0.8;
+}
+
+.loop-active:hover {
+  opacity: 1;
 }
 
 /* Media Query: iPhone (Vertical) */

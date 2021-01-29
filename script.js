@@ -70,21 +70,52 @@ function loadSong(song) {
 }
 
 let songIndex = 2;
+let isShuffle = false;
+
+function genRandomIndex() {
+  // Generate random song index
+  const maxIndex = songs.length - 1;
+  const minIndex = 0;
+  let randomIndex = (Math.random() * (maxIndex - minIndex + 1)) << 0;
+  // if same as last songIndex, use songIndex + 1
+  randomIndex = randomIndex === songIndex ? songIndex + 1 : randomIndex;
+  return randomIndex;
+}
 
 function loadPrevSong() {
-  songIndex = songIndex === 0 ? songs.length - 1 : songIndex - 1;
+  if (isShuffle) {
+    songIndex = genRandomIndex();
+  } else {
+    songIndex = songIndex === 0 ? songs.length - 1 : songIndex - 1;
+  }
   loadSong(songs[songIndex]);
   playSong();
 }
 
 function loadNextSong() {
-  songIndex = songIndex === songs.length - 1 ? 0 : songIndex + 1;
+  if (isShuffle) {
+    songIndex = genRandomIndex();
+  } else {
+    songIndex = songIndex === songs.length - 1 ? 0 : songIndex + 1;
+  }
   loadSong(songs[songIndex]);
   playSong();
 }
 
 prevBtn.addEventListener("click", loadPrevSong);
 nextBtn.addEventListener("click", loadNextSong);
+
+// Toggle: Shuffle next song
+function toggleShuffle() {
+  isShuffle = !isShuffle;
+  shuffleBtn.style.color = isShuffle ? "#2c2c2c" : "#818181";
+  if (isShuffle) {
+    music.loop = false;
+    loopBtn.classList.replace("loop-active", "loop-inactive");
+  }
+}
+
+shuffleBtn.addEventListener("click", toggleShuffle);
 
 // Update progress bar & time
 
@@ -128,10 +159,18 @@ progressContainer.addEventListener("click", setProgressBar);
 music.addEventListener("ended", loadNextSong);
 
 // Toggle: Loop current song
-loopBtn.addEventListener("click", () => {
+function toggleLoop() {
   music.loop = !music.loop;
-  loopBtn.style.opacity = music.loop ? 0.8 : 0.5;
-});
+  if (music.loop) {
+    isShuffle = false;
+    shuffleBtn.style.color = "#818181";
+    loopBtn.classList.replace("loop-inactive", "loop-active");
+  } else {
+    loopBtn.classList.replace("loop-active", "loop-inactive");
+  }
+}
+
+loopBtn.addEventListener("click", toggleLoop);
 
 // On load
 loadSong(songs[songIndex]);
